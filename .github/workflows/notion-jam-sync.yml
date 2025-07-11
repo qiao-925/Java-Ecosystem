@@ -18,7 +18,7 @@ jobs:
         uses: victornpb/notion-jam@v0.0.10 # 使用notion-jam的指定版本
         with:
           NOTION_SECRET: ${{ secrets.NOTION_SECRET }} # 引用之前设置的Notion Secret
-          NOTION_DATABASE: https://www.notion.so/YOUR_DATABASE_ID # 替换为你的Notion数据库URL或ID
+        #NOTION_DATABASE: https://www.notion.so/YOUR_DATABASE_ID # 替换为你的Notion数据库URL或ID
           FILTER_PROP: Status # 用于过滤页面的属性名称
           FILTER_VALUES: Published # 只有Status属性为Published的页面才会被同步
           CONVERT_PROP_CASE: snake # 将数据库属性名转换为snake_case

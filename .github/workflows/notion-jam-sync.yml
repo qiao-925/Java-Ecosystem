@@ -19,9 +19,7 @@ jobs:
         with:
           NOTION_SECRET: ${{ secrets.NOTION_SECRET }} # 引用之前设置的Notion Secret
           NOTION_DATABASE: https://www.notion.so/Java-Ecosystem-22db8c70e42481f393dbf8e457be8f68 # 替换为你的Notion数据库URL或ID
-          FILTER_PROP: Status # 用于过滤页面的属性名称
-          FILTER_VALUES: Published # 只有Status属性为Published的页面才会被同步
-          CONVERT_PROP_CASE: snake # 将数据库属性名转换为snake_case
+
           ARTICLE_PATH: content/posts/{title}/README.md # Markdown文件的保存路径模板
           ASSETS_PATH: ./
           PARALLEL_PAGES: 25

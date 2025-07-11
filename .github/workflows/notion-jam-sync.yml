@@ -1,20 +1,20 @@
-name: sync-notion-to-github
-
+name: Notion2Github
 on:
-  schedule:
-    - cron: '0 0 * * *' # every day at 00:00 UTC
-  workflow_dispatch:
+  pull_request:
   push:
     branches:
       - main
-
-permissions:
-  contents: write # 这一行非常重要，授予写入权限
 jobs:
-  sync:
+  auto-sync-from-notion-to-github:
     runs-on: ubuntu-latest
     steps:
-    - name: notion-sync
-      uses: YouXam/Notion-GitHub-Sync@v1
-      with:
-        notion_token: ${{ secrets.NOTION_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Notion2Github
+        uses: younho9/notion2github@v1.1.0
+        with:
+          database-url: 'https://www.notion.so/Java-22db8c70e42481f393dbf8e457be8f68'
+          docs-directory: docs
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}

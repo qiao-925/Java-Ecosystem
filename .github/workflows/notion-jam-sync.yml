@@ -1,34 +1,18 @@
-name: NotionJAM Sync
+name: sync-notion-to-github
 
 on:
   schedule:
-    - cron: "0 21 * * *" # 每天UTC时间21:00运行（北京时间次日凌晨5:00）
+    - cron: '0 0 * * *' # every day at 00:00 UTC
+  workflow_dispatch:
   push:
-    branches: [master, main] # 在master或main分支有push操作时运行
-  workflow_dispatch: {} # 允许手动从GitHub Actions界面触发
+    branches:
+      - main
 
 jobs:
-  build:
+  sync:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3 # 检出你的GitHub仓库代码
-
-      - name: Run notion-jam # 运行notion-jam Action
-        uses: victornpb/notion-jam@v0.0.10 # 使用notion-jam的指定版本
-        with:
-          NOTION_SECRET: ${{ secrets.NOTION_SECRET }} # 引用之前设置的Notion Secret
-          NOTION_DATABASE: https://www.notion.so/Java-Ecosystem-22db8c70e42481f393dbf8e457be8f68 # 替换为你的Notion数据库URL或ID
-
-          ARTICLE_PATH: content/posts/{title}/README.md # Markdown文件的保存路径模板
-          ASSETS_PATH: ./
-          PARALLEL_PAGES: 25
-          PARALLEL_DOWNLOADS_PER_PAGE: 3
-          DOWNLOAD_IMAGE_TIMEOUT: 30
-          SKIP_DOWNLOADED_IMAGES: true
-          DOWNLOAD_FRONTMATTER_IMAGES: true
-
-      - name: Save changes # 提交notion-jam生成或修改的文件到GitHub仓库
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Commit changes from NotionJAM # 提交信息
+    - name: notion-sync
+      uses: YouXam/Notion-GitHub-Sync@v1
+      with:
+        notion_token: ${{ secrets.NOTION_TOKEN }}
